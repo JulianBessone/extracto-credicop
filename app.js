@@ -24,7 +24,7 @@ fs.readdir(excelDirectoryPath, (err, files) => {
 
     // Ahora puedes leer y procesar el archivo Excel
     console.log('Nombre del archivo Excel encontrado:', excelFile);
-    console.log('Ruta completa del archivo Excel:', excelFilePath);
+    //console.log('Ruta completa del archivo Excel:', excelFilePath);
 
     // Lee el archivo Excel
     const workbook = xlsx.readFile(excelFilePath);
