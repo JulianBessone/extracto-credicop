@@ -1,8 +1,8 @@
 const xlsx = require ('xlsx');
 const fs = require('fs');
 const path = require('path');
-
-
+// Obtener el directorio del escritorio
+const desktopDir = path.join(require('os').homedir(), 'Desktop');
 
 const excelDirectoryPath = './excels';
 // Lee el contenido del directorio
@@ -35,7 +35,7 @@ fs.readdir(excelDirectoryPath, (err, files) => {
     const jsonData = xlsx.utils.sheet_to_json(worksheet);
 
     // Muestra la información en formato JSON
-    //console.log();
+    console.log("información copiada");
     generarExcel(jsonData);
 })
 
@@ -64,8 +64,10 @@ function generarExcel(data) {
     const wb = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(wb, ws, 'Data');
   
+    console.log(`Archivo Excel creado`);
+    
     // Guardar el archivo Excel
-    const filePath = './extracto-limpio.xlsx';
+    const filePath = `${desktopDir}/extracto-limpio.xlsx`;
     xlsx.writeFile(wb, filePath);
     console.log(`Archivo Excel generado: ${filePath}`);
 }

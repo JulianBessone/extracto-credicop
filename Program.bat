@@ -1,5 +1,5 @@
 @echo off
-
+cls
 echo.
 echo.
 echo.
@@ -19,28 +19,29 @@ echo.
 echo.
 
 REM Define el directorio en el que deseas trabajar
-set "directorio=C:\dev\ext"
+set "directorio=C:\dev\extracto-credicop"
 
 set "descargas=C:\Users\JGBessone\Downloads"
 
 REM Navega al directorio deseado
 cd /d "%descargas%"
 
-REM Encuentra el archivo más reciente con extensión .xlsx en la carpeta de origen
-for /f "delims=" %%I in ('forfiles /p "%descargas%" /m *.xlsx /c "cmd /c echo @file @fdate" /d -1 2^>nul') do set "latestFile=%%I"
-
-REM Verifica si se encontró un archivo
-if defined latestFile (
-    REM Copia el archivo encontrado a la carpeta de destino
-    copy "%descargas%\%latestFile%" "%directorio%"
-    echo Archivo copiado exitosamente.
-) else (
-    echo No se encontraron archivos .xlsx en la carpeta de origen.
+REM Buscar el archivo XLS más reciente en el directorio de origen
+for /f "delims=" %%A in ('dir /b /o-d /a-d "%descargas%\*.xls*" 2^>nul') do (
+    set "archivo=%%A"
+    goto copiar_archivo
 )
+echo No se encontraron archivos XLS en %descargas%
+
+
+:copiar_archivo
+REM Copiar el archivo al directorio de destino
+copy "%descargas%\%archivo%" "%directorio%\excels"
+echo Archivo %archivo% copiado a %directorio_destino%
+
 
 REM Navega al directorio deseado
 cd /d "%directorio%"
-cls
 
 REM Pregunta al usuario si desea instalar las dependencias
 set /p "respuesta=¿Deseas instalar las dependencias? (S/N): "
