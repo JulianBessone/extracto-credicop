@@ -36,7 +36,7 @@ echo No se encontraron archivos XLS en %descargas%
 
 :copiar_archivo
 REM Copiar el archivo al directorio de destino
-copy "%descargas%\%archivo%" "%directorio%\excels"
+copy /Y "%descargas%\%archivo%" "%directorio%\excels\data.xls"
 echo Archivo %archivo% copiado a %directorio_destino%
 
 
@@ -56,8 +56,8 @@ if /i "%respuesta%"=="S" (
     timeout /t 120 >nul
 
     echo Iniciando la aplicación con npm start...
-    npm start
+    node app.js
 ) else (
     echo Iniciando la aplicación con npm start...
-    npm start
+    node app.js
 )
