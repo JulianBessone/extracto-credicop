@@ -25,16 +25,15 @@ REM Definir las opciones para el usuario
 echo Seleccione el banco:
 echo 1. Banco Macro
 echo 2. Credicop
-set /p "opcion=Ingrese el número de su elección: "
+set /p "opcion=Ingrese el numero de su eleccion: "
 
 REM Establecer el directorio de descargas en función de la opción seleccionada
 if "%opcion%"=="1" (
-    set "descargas=C:\Ruta\Al\Directorio\De\Descargas\Del\Banco\Macro"
-) elseif "%opcion%"=="2" (
-    set "descargas=C:\Ruta\Al\Directorio\De\Descargas\De\Credicop"
+    set "descargas=\\servidor\Compartido\ALINA\Extractos diarios\Macro"
+) else if "%opcion%"=="2" (
+    set "descargas=\\servidor\Compartido\ALINA\Extractos diarios\Credicop"
 ) else (
     echo Opción no válida.
-    exit /b
 )
 
 REM Navega al directorio deseado
@@ -53,18 +52,16 @@ REM Copiar el archivo al directorio de destino
 copy /Y "%descargas%\%archivo%" "%directorio%\excels\data.xls"
 echo Archivo %archivo% copiado a %directorio_destino%
 
-
 REM Navega al directorio deseado
 cd /d "%directorio%"
 
-
 if "%opcion%"=="1" (
     echo Iniciando la aplicación con Banco Macro...
+    pause
     node macro.js
-) elseif "%opcion%"=="2" (
-    echo Iniciando la aplicación con Banco Macro...
+) else if "%opcion%"=="2" (
+    echo Iniciando la aplicación con Banco Credicop...
     node credicop.js
 ) else (
     echo Opción no válida.
-    exit /b
 )
