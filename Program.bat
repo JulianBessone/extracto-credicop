@@ -21,7 +21,21 @@ echo.
 REM Define el directorio en el que deseas trabajar
 set "directorio=C:\dev\extracto-credicop"
 
-set "descargas=C:\Users\JGBessone\Downloads"
+REM Definir las opciones para el usuario
+echo Seleccione el banco:
+echo 1. Banco Macro
+echo 2. Credicop
+set /p "opcion=Ingrese el número de su elección: "
+
+REM Establecer el directorio de descargas en función de la opción seleccionada
+if "%opcion%"=="1" (
+    set "descargas=C:\Ruta\Al\Directorio\De\Descargas\Del\Banco\Macro"
+) elseif "%opcion%"=="2" (
+    set "descargas=C:\Ruta\Al\Directorio\De\Descargas\De\Credicop"
+) else (
+    echo Opción no válida.
+    exit /b
+)
 
 REM Navega al directorio deseado
 cd /d "%descargas%"
@@ -43,21 +57,14 @@ echo Archivo %archivo% copiado a %directorio_destino%
 REM Navega al directorio deseado
 cd /d "%directorio%"
 
-REM Pregunta al usuario si desea instalar las dependencias
-set /p "respuesta=¿Deseas instalar las dependencias? (S/N): "
 
-if /i "%respuesta%"=="S" (
-    echo ⏱ Instalando dependencias con npm install...
-    npm install
-
-    echo Esperando a que termine la instalación...
-
-    REM Espera 120 segundos (2 minutos) para asegurarte de que npm install haya terminado
-    timeout /t 120 >nul
-
-    echo Iniciando la aplicación con npm start...
-    node app.js
+if "%opcion%"=="1" (
+    echo Iniciando la aplicación con Banco Macro...
+    node macro.js
+) elseif "%opcion%"=="2" (
+    echo Iniciando la aplicación con Banco Macro...
+    node credicop.js
 ) else (
-    echo Iniciando la aplicación con npm start...
-    node app.js
+    echo Opción no válida.
+    exit /b
 )
